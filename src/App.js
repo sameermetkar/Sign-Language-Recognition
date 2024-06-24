@@ -1,16 +1,13 @@
-import { Route, Routes, useNavigate } from "react-router-dom";
+import { Route, Routes } from "react-router-dom";
 import "./App.css";
 import {
   Navbar,
   Footer,
   Home,
-  Login,
   Detect,
   NotFound,
   Dashboard,
 } from "./components";
-import { useEffect } from "react";
-import { useSelector } from "react-redux";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
@@ -35,15 +32,7 @@ const Layout = ({ children }) => {
 };
 
 function App() {
-  const { accessToken, loading } = useSelector((state) => state.auth);
-  const navigate = useNavigate();
-
-  useEffect(() => {
-    if (!loading && !accessToken) {
-      navigate("/login");
-    }
-  }, [accessToken, loading, navigate]);
-
+  
   return (
     <div className="App">
       <Routes>
@@ -67,27 +56,15 @@ function App() {
           }
         />
 
-        {/* <Route
-          exact
-          path="/guide"
-          element={
-            <Layout>
-              <Guide />
-            </Layout>
-          }
-        /> */}
-
         <Route
           exact
           path="/dashboard"
           element={
             <Layout>
-              <Dashboard />
+              <Dashboard/>
             </Layout>
           }
         />
-
-        <Route exact path="/login" element={<Login notifyMsg={notifyMsg} />} />
 
         <Route exact path="*" element={<NotFound />} />
       </Routes>
